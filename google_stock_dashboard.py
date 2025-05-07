@@ -11,15 +11,14 @@ st.subheader("Data Reveals Hidden Patterns in Price and Volume")
 def load_data():
     # Replace with your actual data source or upload CSV to GitHub
     url = "https://raw.githubusercontent.com/lyven81/case-study-dashboard/main/google%20stock%20dataset.csv"
-    return pd.read_csv(url, parse_dates=['Month'])
+    df = pd.read_csv(url)
+    df['Month'] = pd.to_datetime(df['Month'], errors='coerce')
+    return df
 
-# Fix datetime conversion
-df['Month'] = pd.to_datetime(df['Month'], errors='coerce')
+df = load_data()
 
 # Now extract the numeric month
 df['Month_Num'] = df['Month'].dt.month
-
-df = load_data()
 
 # Show raw data toggle
 if st.checkbox("Show raw data"):
@@ -58,7 +57,6 @@ st.pyplot(fig3)
 
 # Seasonal insight
 st.markdown("### Average Closing Price by Month")
-df['Month_Num'] = df['Month'].dt.month
 monthly_avg = df.groupby('Month_Num')['Close'].mean().reset_index()
 month_map = {
     1: 'Jan', 2: 'Feb', 3: 'Mar', 4: 'Apr', 5: 'May', 6: 'Jun',
@@ -78,4 +76,3 @@ st.markdown("📌 **Investor Tip:**")
 st.markdown("- August–September often present buying opportunities.")
 st.markdown("- February–June and October–November are usually good selling windows.")
 st.markdown("- Watch for volume spikes ahead of price changes.")
-
