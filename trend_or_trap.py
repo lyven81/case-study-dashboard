@@ -1,17 +1,30 @@
 import streamlit as st
 
-st.title("📊 Trend or Trap: Learn with Q&A")
+# Custom CSS for larger font sizes
+st.markdown("""
+    <style>
+        .big-question {
+            font-size: 20px !important;
+            font-weight: 600;
+        }
+        .big-answer {
+            font-size: 18px !important;
+            font-weight: 400;
+        }
+    </style>
+""", unsafe_allow_html=True)
 
+st.title("📊 Trend or Trap: Learn with Q&A")
 st.markdown("Welcome to your interactive Google Stock crash course. Let's see what you've got! 💥")
 
 qna = [
     {
         "question": "Q1. What does it mean when the price crosses above the 200-day average?",
-        "answer": "That's a classic **Golden Cross**! It often signals the start of a potential uptrend—investors take this as a bullish sign. 📈"
+        "answer": "That's a classic <b>Golden Cross</b>! It often signals the start of a potential uptrend—investors take this as a bullish sign. 📈"
     },
     {
         "question": "Q2. What should you watch for when the price drops below the 200-day average?",
-        "answer": "That's a **Death Cross**, a potential warning sign of a downturn. Time to get cautious. 🚨"
+        "answer": "That's a <b>Death Cross</b>, a potential warning sign of a downturn. Time to get cautious. 🚨"
     },
     {
         "question": "Q3. Is high trading volume always a good sign?",
@@ -19,15 +32,15 @@ qna = [
     },
     {
         "question": "Q4. Why do earnings months matter?",
-        "answer": "Google’s stock shows big swings in **January, April, July, and October**—earnings season! Expect volatility whether good or bad. ⚖️"
+        "answer": "Google’s stock shows big swings in <b>January, April, July, and October</b>—earnings season! Expect volatility whether good or bad. ⚖️"
     },
     {
         "question": "Q5. Which month historically offers the best 'buy the dip' opportunity?",
-        "answer": "**August and September** often see lower prices. If you’re bargain hunting, they’re your friends. 🛒"
+        "answer": "<b>August and September</b> often see lower prices. If you’re bargain hunting, they’re your friends. 🛒"
     },
     {
         "question": "Q6. When might be a good time to sell?",
-        "answer": "Historically, **February through June** and **October–November** show strong price growth—ideal months to lock in profits. 💰"
+        "answer": "Historically, <b>February through June</b> and <b>October–November</b> show strong price growth—ideal months to lock in profits. 💰"
     },
     {
         "question": "Q7. What's a healthy price trend?",
@@ -43,13 +56,13 @@ qna = [
     },
     {
         "question": "Q10. What’s your one-line advice for timing trades?",
-        "answer": "**Let the trend confirm the story.** Use patterns, volume, and average lines to decide—not just the headline news. 🧠"
+        "answer": "<b>Let the trend confirm the story.</b> Use patterns, volume, and average lines to decide—not just the headline news. 🧠"
     },
 ]
 
 for item in qna:
-    with st.expander(item["question"]):
-        st.markdown(item["answer"])
+    with st.expander(f"{item['question']}"):
+        st.markdown(f"<div class='big-answer'>{item['answer']}</div>", unsafe_allow_html=True)
 
 st.markdown("---")
-st.markdown("Built using historical analysis from Google's stock between 2015–2023.")
+st.markdown("📊 <span style='font-size:16px;'>Based on Google's stock trends from 2015 to 2023.</span>", unsafe_allow_html=True)
