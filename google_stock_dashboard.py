@@ -1,69 +1,65 @@
 from pathlib import Path
 
-streamlit_code = """
+# Corrected: Move the loop inside the string as raw text
+updated_code = """
 import streamlit as st
 
-st.set_page_config(page_title="📈 Google Stock Q&A", layout="centered")
+st.set_page_config(layout="wide")
 
-st.title("📊 Smart Q&A: When to Buy or Sell Google Stock")
-st.markdown("Explore what the data reveals in a fun and interactive way—even if you're not a market expert.")
-
+# Custom CSS styling
 st.markdown(\"\"\"
-<style>
-    .big-font {
-        font-size: 18px !important;
-    }
-</style>
+    <style>
+        .big-font {
+            font-size:22px !important;
+        }
+        .stRadio > div {
+            flex-direction: row;
+        }
+        .question-block {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 8px rgba(0,0,0,0.05);
+            margin-bottom: 30px;
+        }
+    </style>
 \"\"\", unsafe_allow_html=True)
 
-def display_answer(button_label, answer_text):
-    if st.button(button_label):
-        st.markdown(f'<div class="big-font">{answer_text}</div>', unsafe_allow_html=True)
+st.title("🤖 Google Stock Insights: Q&A Edition")
+st.markdown("Get bite-sized, interactive answers based on Google stock trends from 2015 to 2023.")
 
-display_answer("1️⃣ What’s a 'Golden Cross,' and should I get excited?",
-    "🟢 <b>Yes, it’s a good sign!</b><br>When Google’s short-term moving average rises above the long-term average, it’s called a <b>Golden Cross</b>—often signaling an upcoming uptrend."
-)
+questions = [
+    "📈 Which month tends to have the highest average closing price?",
+    "📉 When do prices usually dip, offering potential buy opportunities?",
+    "📊 Is October a good month to sell?",
+    "🔍 What’s special about April in terms of stock movement?",
+    "💸 Do earnings months show more price spikes?",
+    "📆 How does February usually perform?",
+    "📉 When is a 'trap' most likely—price goes up then sharply drops?",
+    "📈 When do we usually see the start of an uptrend?",
+    "🧠 Are there months with both high volume and price swings?",
+    "🎯 What's the best tip for someone eyeing Google stock seasonally?"
+]
 
-display_answer("2️⃣ Why is August not my stock market bestie?",
-    "🔻 <b>Because August is historically weak.</b><br>With an average return of –3.67% and the lowest trading volume, August tends to disappoint. Better wait for a rebound."
-)
+answers = [
+    "November usually closes with the highest average price. It’s historically a strong month.",
+    "August and September often see dips—smart investors keep watch for rebounds here!",
+    "Yes! October often performs well, making it a potential exit point for gains.",
+    "April is an earnings month—volatility is common. Watch for pre-earnings spikes.",
+    "Yes. Earnings months (Jan, Apr, Jul, Oct) often bring sharp movement—great for active traders!",
+    "February is historically strong. Prices are stable and often rising post-January dips.",
+    "August has seen sudden spikes followed by drops. It’s a month to tread carefully.",
+    "March and October sometimes show early signs of price recovery and upward trends.",
+    "April and October stand out for high trading volume and bigger swings—momentum traders take note!",
+    "Look for dips in late summer (Aug–Sep) and sell before year-end highs (Nov–Dec)."
+]
 
-display_answer("3️⃣ Is it true February is a good time to sell?",
-    "📈 <b>Yes!</b><br>February has one of the strongest historical returns. If you’re holding Google stock, it might be a sweet spot to cash in."
-)
-
-display_answer("4️⃣ What do earnings seasons do to stock prices?",
-    "🎯 <b>They shake things up.</b><br>In January, April, July, and October, volatility spikes to 6.68%. Prices often dip around earnings—sometimes a great chance to buy."
-)
-
-display_answer("5️⃣ Can volume tell me anything useful?",
-    "🔍 <b>Absolutely.</b><br>Volume spikes often happen before big price moves. When trading volume jumps, it could signal rising interest—get ready."
-)
-
-display_answer("6️⃣ Did things really change after 2019?",
-    "🚀 <b>Big time!</b><br>Google’s average closing price jumped 65%, and trading volume doubled. More action, more risk—and more opportunities."
-)
-
-display_answer("7️⃣ How can I spot a market trap?",
-    "⚠️ <b>Watch for the 'Death Cross'.</b><br>That’s when short-term trends fall below long-term ones. Combine it with falling volume—it might signal a downturn."
-)
-
-display_answer("8️⃣ What’s the best quarter to invest in Google?",
-    "🌟 <b>Q1 shines the brightest.</b><br>January to March has the highest average return. Historically, it’s the best time to hold."
-)
-
-display_answer("9️⃣ Is it better to time entry by month?",
-    "📅 <b>It helps!</b><br>Buying in August–September and selling in February–June often pays off. Past patterns show clear seasonal trends."
-)
-
-display_answer("🔟 I don’t do stats—can I still use this?",
-    "🧠 <b>Yes!</b><br>We simplified the data so anyone can use it. Just follow the patterns: watch earnings months, buy the dips, sell into strength."
-)
-
-st.markdown("---")
-st.caption("📘 Insights based on historical stock trends for Google (2015–2023).")
+for i in range(len(questions)):
+    st.markdown(f"<div class='question-block'><p class='big-font'><strong>{questions[i]}</strong></p><p class='big-font'>{answers[i]}</p></div>", unsafe_allow_html=True)
 """
 
-Path("/mnt/data/stock_qna_dashboard.py").write_text(streamlit_code)
-"/mnt/data/stock_qna_dashboard.py"
+# Save to file
+output_path = "/mnt/data/google_stock_qna_dashboard.py"
+Path(output_path).write_text(updated_code)
 
+output_path
