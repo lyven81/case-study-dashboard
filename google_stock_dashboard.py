@@ -13,6 +13,12 @@ def load_data():
     url = "https://raw.githubusercontent.com/lyven81/case-study-dashboard/main/google%20stock%20dataset.csv"
     return pd.read_csv(url, parse_dates=['Month'])
 
+# Fix datetime conversion
+df['Month'] = pd.to_datetime(df['Month'], errors='coerce')
+
+# Now extract the numeric month
+df['Month_Num'] = df['Month'].dt.month
+
 df = load_data()
 
 # Show raw data toggle
