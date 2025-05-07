@@ -7,7 +7,7 @@ import streamlit as st
 st.set_page_config(layout="wide")
 
 # Custom CSS styling
-st.markdown(\"\"\"
+st.markdown(\"\"\" 
     <style>
         .big-font {
             font-size:22px !important;
@@ -60,6 +60,8 @@ for i in range(len(questions)):
 
 # Save to file
 output_path = "/mnt/data/google_stock_qna_dashboard.py"
-Path(output_path).write_text(updated_code)
+output_file = Path(output_path)
+output_file.parent.mkdir(parents=True, exist_ok=True)
+output_file.write_text(updated_code)
 
 output_path
