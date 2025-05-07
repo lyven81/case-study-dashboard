@@ -1,93 +1,55 @@
-
 import streamlit as st
 
-st.set_page_config(page_title="Trend or Trap Advisor", layout="centered")
-st.title("📊 Trend or Trap? | Google Stock Insight Advisor")
-st.markdown("Get quick insights based on typical stock trends, without needing charts or data files!")
+st.title("📊 Trend or Trap: Learn with Q&A")
 
-# Q1
-st.markdown("### 1. Is this daily price swing unusual?")
-daily_change = st.slider("Daily % Change", -10, 10, 0)
-if abs(daily_change) > 2:
-    st.warning("🔺 Yes! That’s unusual. Typical daily swings are –2% to +2%. Investigate further.")
-else:
-    st.success("✅ Normal fluctuation. Nothing too wild here.")
+st.markdown("Welcome to your interactive Google Stock crash course. Let's see what you've got! 💥")
 
-# Q2
-st.markdown("### 2. Is this monthly price swing a red flag?")
-monthly_change = st.slider("Monthly % Change", -50, 50, 0)
-if abs(monthly_change) > 15:
-    st.warning("⚠️ That’s a big swing! Google usually moves 5–10% monthly.")
-else:
-    st.success("🟢 Within expected range.")
+qna = [
+    {
+        "question": "Q1. What does it mean when the price crosses above the 200-day average?",
+        "answer": "That's a classic **Golden Cross**! It often signals the start of a potential uptrend—investors take this as a bullish sign. 📈"
+    },
+    {
+        "question": "Q2. What should you watch for when the price drops below the 200-day average?",
+        "answer": "That's a **Death Cross**, a potential warning sign of a downturn. Time to get cautious. 🚨"
+    },
+    {
+        "question": "Q3. Is high trading volume always a good sign?",
+        "answer": "Not necessarily. High volume during a price rise suggests strong momentum. But high volume during a drop could signal panic selling. Context matters! 🔍"
+    },
+    {
+        "question": "Q4. Why do earnings months matter?",
+        "answer": "Google’s stock shows big swings in **January, April, July, and October**—earnings season! Expect volatility whether good or bad. ⚖️"
+    },
+    {
+        "question": "Q5. Which month historically offers the best 'buy the dip' opportunity?",
+        "answer": "**August and September** often see lower prices. If you’re bargain hunting, they’re your friends. 🛒"
+    },
+    {
+        "question": "Q6. When might be a good time to sell?",
+        "answer": "Historically, **February through June** and **October–November** show strong price growth—ideal months to lock in profits. 💰"
+    },
+    {
+        "question": "Q7. What's a healthy price trend?",
+        "answer": "When short-term averages (20-day) rise steadily above long-term ones (200-day), it's a sign of consistent momentum—not just a spike. 📈"
+    },
+    {
+        "question": "Q8. How can I tell if it’s just hype?",
+        "answer": "If the price jumps up quickly but volume is flat, the trend might be weak or unsustainable. Be skeptical. 🤔"
+    },
+    {
+        "question": "Q9. What’s the danger of ignoring moving averages?",
+        "answer": "You might mistake a temporary spike for a real trend or miss warning signs of a downturn. Averages smooth the noise. 🎯"
+    },
+    {
+        "question": "Q10. What’s your one-line advice for timing trades?",
+        "answer": "**Let the trend confirm the story.** Use patterns, volume, and average lines to decide—not just the headline news. 🧠"
+    },
+]
 
-# Q3
-st.markdown("### 3. Did the trend signal something?")
-cross_event = st.radio("Did the 20-day MA cross the 200-day MA?", ["Yes - Upward", "Yes - Downward", "No Change"])
-if cross_event == "Yes - Upward":
-    st.success("🌟 Golden Cross spotted! Trend may be turning bullish.")
-elif cross_event == "Yes - Downward":
-    st.warning("⚠️ Death Cross ahead! Trend might weaken.")
-else:
-    st.info("🔄 No strong signal detected yet.")
-
-# Q4
-st.markdown("### 4. What’s the vibe this month?")
-month = st.selectbox("Pick a month", ["January", "April", "May", "August", "October", "December"])
-if month in ["January", "December"]:
-    st.success("🧊 Calm and steady. Good time to review and plan.")
-elif month in ["April", "August"]:
-    st.warning("🔥 Watch out! These months tend to bring more volatility.")
-else:
-    st.info("📊 Balanced month — keep an eye but nothing extreme.")
-
-# Q5
-st.markdown("### 5. Has volume been unusually high?")
-volume_spike = st.radio("Volume increased > 50% this week?", ["Yes", "No"])
-if volume_spike == "Yes":
-    st.warning("🔍 High volume! Look for news or earnings buzz.")
-else:
-    st.success("🔕 Normal trading activity.")
-
-# Q6
-st.markdown("### 6. Are we near earnings season?")
-earnings_coming = st.toggle("Earnings report coming soon?")
-if earnings_coming:
-    st.warning("🧨 Expect price swings before and after earnings!")
-else:
-    st.info("🧘 Calm waters... for now.")
-
-# Q7
-st.markdown("### 7. Did we just hit an all-time high?")
-all_time = st.radio("Price touched all-time high?", ["Yes", "No"])
-if all_time == "Yes":
-    st.warning("🚩 Be cautious — some pullbacks tend to follow highs.")
-else:
-    st.success("✅ Still room to grow or recover.")
-
-# Q8
-st.markdown("### 8. Are we in a sideways zone?")
-flat_movement = st.slider("Flat trading days in a row", 0, 20, 3)
-if flat_movement >= 10:
-    st.info("⏸️ Trend paused. Breakout might be near!")
-else:
-    st.success("📈 Still moving — no stall yet.")
-
-# Q9
-st.markdown("### 9. Is it a good time to dollar-cost average?")
-is_volatility = st.radio("Market feeling bumpy?", ["Yes", "No"])
-if is_volatility == "Yes":
-    st.success("📉 Great time to dollar-cost average and smooth out risk.")
-else:
-    st.info("⏳ Maybe hold and wait for a dip.")
-
-# Q10
-st.markdown("### 10. Should I act today?")
-today_price_move = st.slider("Today's % Move", -5, 5, 0)
-if abs(today_price_move) > 3:
-    st.warning("🎯 Big moves today. Best not to rush decisions.")
-else:
-    st.success("👌 No urgency. Take your time and research.")
+for item in qna:
+    with st.expander(item["question"]):
+        st.markdown(item["answer"])
 
 st.markdown("---")
-st.caption("Based on trend patterns observed from 2015–2023. For educational use only.")
+st.markdown("Built using historical analysis from Google's stock between 2015–2023.")
