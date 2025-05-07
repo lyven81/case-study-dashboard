@@ -1,13 +1,9 @@
-from pathlib import Path
-
-# Corrected: Move the loop inside the string as raw text
-updated_code = """
 import streamlit as st
 
 st.set_page_config(layout="wide")
 
 # Custom CSS styling
-st.markdown(\"\"\" 
+st.markdown("""
     <style>
         .big-font {
             font-size:22px !important;
@@ -23,7 +19,7 @@ st.markdown(\"\"\"
             margin-bottom: 30px;
         }
     </style>
-\"\"\", unsafe_allow_html=True)
+""", unsafe_allow_html=True)
 
 st.title("🤖 Google Stock Insights: Q&A Edition")
 st.markdown("Get bite-sized, interactive answers based on Google stock trends from 2015 to 2023.")
@@ -55,13 +51,7 @@ answers = [
 ]
 
 for i in range(len(questions)):
-    st.markdown(f"<div class='question-block'><p class='big-font'><strong>{questions[i]}</strong></p><p class='big-font'>{answers[i]}</p></div>", unsafe_allow_html=True)
-"""
-
-# Save to file
-output_path = "/mnt/data/google_stock_qna_dashboard.py"
-output_file = Path(output_path)
-output_file.parent.mkdir(parents=True, exist_ok=True)
-output_file.write_text(updated_code)
-
-output_path
+    st.markdown(
+        f"<div class='question-block'><p class='big-font'><strong>{questions[i]}</strong></p><p class='big-font'>{answers[i]}</p></div>",
+        unsafe_allow_html=True
+    )
