@@ -10,7 +10,7 @@ st.subheader("Data Reveals Hidden Patterns in Price and Volume")
 @st.cache_data
 def load_data():
     # Replace with your actual data source or upload CSV to GitHub
-    url = "https://raw.githubusercontent.com/lyven81/data-analyst-portfolio/main/datasets/google_stock_sample.csv"
+    url = "https://raw.githubusercontent.com/lyven81/case-study-dashboard/main/google%20stock%20dataset.csv"
     return pd.read_csv(url, parse_dates=['Month'])
 
 df = load_data()
