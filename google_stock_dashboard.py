@@ -29,18 +29,24 @@ earnings_months = [1, 4, 7, 10]  # Jan, Apr, Jul, Oct
 st.markdown("### Select Your Investment Scenario")
 selected_month = st.selectbox("Which month are you considering?", list(month_name_map.values()))
 current_price = st.slider("What's the current stock price?", min_value=80, max_value=160, value=120, step=1)
-is_earnings = st.toggle("Is it an earnings month?", value=(list(month_name_map.values()).index(selected_month) + 1) in earnings_months)
-
 selected_month_num = list(month_name_map.keys())[list(month_name_map.values()).index(selected_month)]
+is_earnings = st.toggle("Is it an earnings month?", value=(selected_month_num in earnings_months))
 
 # Historical monthly average
 monthly_avg = df.groupby('Month_Num')['Close'].mean().reset_index()
-avg_price = monthly_avg.loc[monthly_avg['Month_Num'] == selected_month_num, 'Close'].values[0]
+matched_row = monthly_avg[monthly_avg['Month_Num'] == selected_month_num]
+if not matched_row.empty:
+    avg_price = matched_row['Close'].values[0]
+else:
+    avg_price = None
 
 # Strategy engine
 st.markdown("### 💡 Smart Assistant Suggestion")
 
-def get_advice(month_num, curr_price, earnings):
+def get_advice(month_num, curr_price, earnings, avg_price):
+    if avg_price is None:
+        return "⚠️ No historical data found for this month."
+
     tip = ""
     emoji = ""
 
@@ -63,7 +69,7 @@ def get_advice(month_num, curr_price, earnings):
     
     return f"{emoji} **{tip}**"
 
-st.markdown(get_advice(selected_month_num, current_price, is_earnings))
+st.markdown(get_advice(selected_month_num, current_price, is_earnings, avg_price))
 
 # Footer
 st.markdown("---")
