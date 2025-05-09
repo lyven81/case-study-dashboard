@@ -27,12 +27,13 @@ current_price = st.number_input("Enter Current Gold Price ($)", min_value=100.0,
 market_condition = st.radio("Select Market Condition", ["Normal", "Crisis"])
 time_index = st.slider("Select Time Index (Week Number)", min_value=1, max_value=104, value=52)
 
-# --- Fair Value Estimation Logic (simulated model) ---
-base_price = 1800 + 2.5 * time_index  # trend line
-if market_condition == "Crisis":
-    fair_value = base_price - 75  # simulated dip under crisis
-else:
-    fair_value = base_price
+# --- Fair Value Estimation Logic (based on report) ---
+# Fair value baseline set to 306.21 from report
+base_fair_value = 306.21
+trend_adjustment = 1.5 * time_index  # mild upward trend
+market_shock = -25 if market_condition == "Crisis" else 0
+
+fair_value = base_fair_value + trend_adjustment + market_shock
 
 # --- Price Gap Evaluation ---
 price_gap = current_price - fair_value
@@ -47,4 +48,4 @@ else:
 
 # --- Footer ---
 st.markdown("---")
-st.markdown("📊 <span style='font-size:16px;'>This dashboard simulates price valuation based on trend and market stress effects.</span>", unsafe_allow_html=True)
+st.markdown("📊 <span style='font-size:16px;'>This dashboard uses a baseline fair value of $306.21 and adjusts for trends and crisis conditions.</span>", unsafe_allow_html=True)
