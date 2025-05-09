@@ -24,7 +24,7 @@ st.title("💰 Is Gold Fairly Priced?")
 st.markdown("Simulate and see whether gold is undervalued, overvalued, or just right based on modeled trends.")
 
 # --- Inputs ---
-current_price = st.number_input("Enter Current Gold Price ($)", min_value=1500.0, max_value=2500.0, value=1950.0, step=1.0)
+current_price = st.number_input("Enter Current Gold Price ($)", min_value=100.0, max_value=25000.0, value=1950.0, step=1.0)
 market_condition = st.radio("Select Market Condition", ["Normal", "Crisis"])
 time_index = st.slider("Select Time Index (Week Number)", min_value=1, max_value=104, value=52)
 
